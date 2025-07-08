@@ -10,44 +10,37 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
         }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-
         .header {
             text-align: center;
             margin-bottom: 30px;
             color: white;
         }
-
         .header h1 {
             font-size: 2.5em;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
-
         .header p {
             font-size: 1.2em;
             opacity: 0.9;
         }
-
         .app-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 25px;
             margin-bottom: 30px;
         }
-
         .card {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
@@ -57,12 +50,10 @@
             border: 1px solid rgba(255,255,255,0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 40px rgba(0,0,0,0.15);
         }
-
         .card h2 {
             color: #5a67d8;
             margin-bottom: 20px;
@@ -71,11 +62,9 @@
             align-items: center;
             gap: 10px;
         }
-
         .icon {
             font-size: 1.2em;
         }
-
         .timer-display {
             font-size: 3em;
             font-weight: bold;
@@ -84,7 +73,6 @@
             color: #5a67d8;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
-
         .btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -97,37 +85,29 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
-
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
-
         .btn-secondary {
             background: #e2e8f0;
             color: #4a5568;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-
         .btn-secondary:hover {
             background: #cbd5e0;
             box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
-
         .input-group {
             margin-bottom: 15px;
         }
-
         .input-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: 600;
             color: #4a5568;
         }
-
-        .input-group input,
-        .input-group textarea,
-        .input-group select {
+        .input-group input, .input-group textarea, .input-group select {
             width: 100%;
             padding: 12px;
             border: 2px solid #e2e8f0;
@@ -135,15 +115,11 @@
             font-size: 1em;
             transition: border-color 0.3s ease;
         }
-
-        .input-group input:focus,
-        .input-group textarea:focus,
-        .input-group select:focus {
+        .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
-
         .prayer-item {
             background: #f7fafc;
             border-left: 4px solid #667eea;
@@ -152,33 +128,27 @@
             border-radius: 0 8px 8px 0;
             transition: all 0.3s ease;
         }
-
         .prayer-item:hover {
             background: #edf2f7;
             transform: translateX(5px);
         }
-
         .prayer-item.answered {
             border-left-color: #48bb78;
             background: #f0fff4;
         }
-
         .prayer-item h4 {
             color: #2d3748;
             margin-bottom: 8px;
         }
-
         .prayer-item p {
             color: #718096;
             font-size: 0.9em;
             margin-bottom: 5px;
         }
-
         .prayer-item .date {
             font-size: 0.8em;
             color: #a0aec0;
         }
-
         .verse-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -186,7 +156,6 @@
             position: relative;
             overflow: hidden;
         }
-
         .verse-card::before {
             content: '';
             position: absolute;
@@ -197,12 +166,14 @@
             background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
             animation: shimmer 6s ease-in-out infinite;
         }
-
         @keyframes shimmer {
-            0%, 100% { transform: translateX(-100%) translateY(-100%); }
-            50% { transform: translateX(0%) translateY(0%); }
+            0%, 100% {
+                transform: translateX(-100%) translateY(-100%);
+            }
+            50% {
+                transform: translateX(0%) translateY(0%);
+            }
         }
-
         .verse-text {
             font-size: 1.2em;
             font-style: italic;
@@ -211,14 +182,12 @@
             position: relative;
             z-index: 1;
         }
-
         .verse-reference {
             font-weight: bold;
             font-size: 1.1em;
             position: relative;
             z-index: 1;
         }
-
         .progress-bar {
             width: 100%;
             height: 20px;
@@ -227,21 +196,18 @@
             overflow: hidden;
             margin: 10px 0;
         }
-
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #667eea, #764ba2);
             transition: width 0.5s ease;
             border-radius: 10px;
         }
-
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
-
         .stat-item {
             text-align: center;
             background: #f7fafc;
@@ -249,24 +215,20 @@
             border-radius: 10px;
             transition: all 0.3s ease;
         }
-
         .stat-item:hover {
             background: #edf2f7;
             transform: scale(1.05);
         }
-
         .stat-number {
             font-size: 2em;
             font-weight: bold;
             color: #5a67d8;
         }
-
         .stat-label {
             font-size: 0.9em;
             color: #718096;
             margin-top: 5px;
         }
-
         .reminder-item {
             background: #fff5f5;
             border: 1px solid #fed7d7;
@@ -277,32 +239,26 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .reminder-text {
             flex: 1;
             margin-right: 10px;
         }
-
         .btn-small {
             padding: 6px 12px;
             font-size: 0.8em;
             border-radius: 15px;
         }
-
         @media (max-width: 768px) {
             .app-grid {
                 grid-template-columns: 1fr;
             }
-            
             .container {
                 padding: 10px;
             }
-            
             .header h1 {
                 font-size: 2em;
             }
         }
-
         .notification {
             position: fixed;
             top: 20px;
@@ -316,7 +272,6 @@
             transform: translateX(100%);
             transition: transform 0.3s ease;
         }
-
         .notification.show {
             transform: translateX(0);
         }
@@ -335,9 +290,9 @@
                 <h2><span class="icon">⏰</span>Daily Prayer Timer</h2>
                 <div class="timer-display" id="timerDisplay">00:00:00</div>
                 <div style="text-align: center; margin-bottom: 20px;">
-                    <button class="btn" id="startBtn" onclick="startTimer()">Start Prayer</button>
-                    <button class="btn btn-secondary" id="pauseBtn" onclick="pauseTimer()" style="display: none;">Pause</button>
-                    <button class="btn btn-secondary" id="stopBtn" onclick="stopTimer()" style="display: none;">Stop</button>
+                    <button class="btn" id="startBtn">Start Prayer</button>
+                    <button class="btn btn-secondary" id="pauseBtn" style="display: none;">Pause</button>
+                    <button class="btn btn-secondary" id="stopBtn" style="display: none;">Stop</button>
                 </div>
                 <div class="input-group">
                     <label for="prayerType">Prayer Type:</label>
@@ -362,8 +317,7 @@
                     <label for="requestDescription">Description:</label>
                     <textarea id="requestDescription" rows="3" placeholder="Describe your prayer request"></textarea>
                 </div>
-                <button class="btn" onclick="addPrayerRequest()">Add Request</button>
-                
+                <button class="btn" id="addRequestBtn">Add Request</button>
                 <div id="prayerRequestsList" style="margin-top: 20px; max-height: 300px; overflow-y: auto;">
                     <!-- Prayer requests will be displayed here -->
                 </div>
@@ -376,7 +330,7 @@
                     "For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, to give you hope and a future."
                 </div>
                 <div class="verse-reference" id="verseReference">Jeremiah 29:11</div>
-                <button class="btn btn-secondary" onclick="getNewVerse()" style="margin-top: 15px; background: rgba(255,255,255,0.2); color: white;">New Verse</button>
+                <button class="btn btn-secondary" id="newVerseBtn" style="margin-top: 15px; background: rgba(255,255,255,0.2); color: white;">New Verse</button>
             </div>
 
             <!-- Progress Visualization Card -->
@@ -419,8 +373,7 @@
                     <label for="reminderMessage">Message:</label>
                     <input type="text" id="reminderMessage" placeholder="Time for prayer!">
                 </div>
-                <button class="btn" onclick="addReminder()">Add Reminder</button>
-                
+                <button class="btn" id="addReminderBtn">Add Reminder</button>
                 <div id="remindersList" style="margin-top: 20px;">
                     <!-- Reminders will be displayed here -->
                 </div>
@@ -440,44 +393,28 @@
         let dailyGoal = 30; // minutes
 
         // Data Storage
-        let prayerRequests = [];
-        let prayerSessions = [];
+        let prayerRequests = [
+            { id: 1, title: "Family Health", description: "Praying for my family's continued health and wellbeing", date: new Date().toLocaleDateString(), answered: false },
+            { id: 2, title: "Work Guidance", description: "Seeking wisdom and direction in my career", date: new Date().toLocaleDateString(), answered: true }
+        ];
+
+        let prayerSessions = [
+            { date: new Date().toISOString().split('T')[0], duration: 900, // 15 minutes
+              type: 'morning', timestamp: new Date().toISOString() }
+        ];
+
         let reminders = [];
 
         // Scripture verses
         const verses = [
-            {
-                text: "For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, to give you hope and a future.",
-                reference: "Jeremiah 29:11"
-            },
-            {
-                text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.",
-                reference: "Romans 8:28"
-            },
-            {
-                text: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",
-                reference: "Proverbs 3:5-6"
-            },
-            {
-                text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",
-                reference: "Joshua 1:9"
-            },
-            {
-                text: "Cast all your anxiety on him because he cares for you.",
-                reference: "1 Peter 5:7"
-            },
-            {
-                text: "The Lord is my shepherd, I lack nothing.",
-                reference: "Psalm 23:1"
-            },
-            {
-                text: "I can do all this through him who gives me strength.",
-                reference: "Philippians 4:13"
-            },
-            {
-                text: "Rejoice always, pray continually, give thanks in all circumstances; for this is God's will for you in Christ Jesus.",
-                reference: "1 Thessalonians 5:16-18"
-            }
+            { text: "For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, to give you hope and a future.", reference: "Jeremiah 29:11" },
+            { text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.", reference: "Romans 8:28" },
+            { text: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.", reference: "Proverbs 3:5-6" },
+            { text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.", reference: "Joshua 1:9" },
+            { text: "Cast all your anxiety on him because he cares for you.", reference: "1 Peter 5:7" },
+            { text: "The Lord is my shepherd, I lack nothing.", reference: "Psalm 23:1" },
+            { text: "I can do all this through him who gives me strength.", reference: "Philippians 4:13" },
+            { text: "Rejoice always, pray continually, give thanks in all circumstances; for this is God's will for you in Christ Jesus.", reference: "1 Thessalonians 5:16-18" }
         ];
 
         // Timer Functions
@@ -486,11 +423,9 @@
                 startTime = Date.now() - pausedTime;
                 isRunning = true;
                 isPaused = false;
-                
                 document.getElementById('startBtn').style.display = 'none';
                 document.getElementById('pauseBtn').style.display = 'inline-block';
                 document.getElementById('stopBtn').style.display = 'inline-block';
-                
                 timerInterval = setInterval(updateTimer, 1000);
                 showNotification('Prayer session started! 🙏');
             }
@@ -518,19 +453,17 @@
                 // Save the session
                 const sessionDuration = Math.floor((Date.now() - startTime) / 1000);
                 const prayerType = document.getElementById('prayerType').value;
-                
                 prayerSessions.push({
                     date: new Date().toISOString().split('T')[0],
                     duration: sessionDuration,
                     type: prayerType,
                     timestamp: new Date().toISOString()
                 });
-                
+
                 // Reset timer
                 isRunning = false;
                 isPaused = false;
                 pausedTime = 0;
-                
                 document.getElementById('startBtn').style.display = 'inline-block';
                 document.getElementById('pauseBtn').style.display = 'none';
                 document.getElementById('stopBtn').style.display = 'none';
@@ -578,12 +511,14 @@
                 };
                 
                 prayerRequests.unshift(request);
-                
                 document.getElementById('requestTitle').value = '';
                 document.getElementById('requestDescription').value = '';
-                
                 displayPrayerRequests();
                 updateStats();
                 showNotification('Prayer request added! 📝');
             }
-     
+        }
+
+        function displayPrayerRequests() {
+            const container = document.getElementById('prayerRequestsList');
+ 
