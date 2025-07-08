@@ -434,6 +434,7 @@
         function pauseTimer() {
             if (isRunning && !isPaused) {
                 clearInterval(timerInterval);
+                pausedTime = Date.now() - startTime;
                 isPaused = true;
                 document.getElementById('pauseBtn').textContent = 'Resume';
                 showNotification('Prayer session paused');
@@ -453,12 +454,15 @@
                 // Save the session
                 const sessionDuration = Math.floor((Date.now() - startTime) / 1000);
                 const prayerType = document.getElementById('prayerType').value;
-                prayerSessions.push({
-                    date: new Date().toISOString().split('T')[0],
-                    duration: sessionDuration,
-                    type: prayerType,
-                    timestamp: new Date().toISOString()
-                });
+                
+                if (sessionDuration > 0) {
+                    prayerSessions.push({
+                        date: new Date().toISOString().split('T')[0],
+                        duration: sessionDuration,
+                        type: prayerType,
+                        timestamp: new Date().toISOString()
+                    });
+                }
 
                 // Reset timer
                 isRunning = false;
@@ -477,7 +481,6 @@
         function updateTimer() {
             if (isRunning && !isPaused) {
                 const elapsed = Date.now() - startTime;
-                pausedTime = elapsed;
                 document.getElementById('timerDisplay').textContent = formatTime(Math.floor(elapsed / 1000));
                 updateProgressBar(Math.floor(elapsed / 1000));
             }
@@ -516,9 +519,204 @@
                 displayPrayerRequests();
                 updateStats();
                 showNotification('Prayer request added! 📝');
+            } else {
+                showNotification('Please enter a title for your prayer request');
             }
         }
 
         function displayPrayerRequests() {
             const container = document.getElementById('prayerRequestsList');
- 
+            container.innerHTML = '';
+            
+            prayerRequests.forEach(request => {
+                const item = document.createElement('div');
+                item.className = `prayer-item ${request.answered ? 'answered' : ''}`;
+                item.innerHTML = `
+                    <h4>${request.title}</h4>
+                    <p>${request.description}</p>
+                    <p class="date">Added: ${request.date}</p>
+                    <button class="btn btn-small toggle-answered-btn" data-id="${request.id}">
+                        ${request.answered ? 'Mark as Pending' : 'Mark as Answered'}
+                    </button>
+                    <button class="btn btn-secondary btn-small delete-request-btn" data-id="${request.id}" style="margin-left: 10px;">
+                        Delete
+                    </button>
+                `;
+                container.appendChild(item);
+            });
+
+            // Add event listeners to the dynamically created buttons
+            document.querySelectorAll('.toggle-answered-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    toggleAnswered(parseInt(this.getAttribute('data-id')));
+                });
+            });
+
+            document.querySelectorAll('.delete-request-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    deletePrayerRequest(parseInt(this.getAttribute('data-id')));
+                });
+            });
+        }
+
+        function toggleAnswered(id) {
+            const request = prayerRequests.find(r => r.id === id);
+            if (request) {
+                request.answered = !request.answered;
+                displayPrayerRequests();
+                updateStats();
+                showNotification(request.answered ? 'Prayer answered! 🙏✨' : 'Prayer marked as pending');
+            }
+        }
+
+        function deletePrayerRequest(id) {
+            prayerRequests = prayerRequests.filter(r => r.id !== id);
+            displayPrayerRequests();
+            updateStats();
+            showNotification('Prayer request deleted');
+        }
+
+        // Scripture Functions
+        function getNewVerse() {
+            const randomIndex = Math.floor(Math.random() * verses.length);
+            const verse = verses[randomIndex];
+            document.getElementById('verseText').textContent = verse.text;
+            document.getElementById('verseReference').textContent = verse.reference;
+            showNotification('New verse loaded! 📖');
+        }
+
+        // Reminder Functions
+        function addReminder() {
+            const time = document.getElementById('reminderTime').value;
+            const message = document.getElementById('reminderMessage').value.trim();
+            
+            if (time && message) {
+                const reminder = {
+                    id: Date.now(),
+                    time: time,
+                    message: message,
+                    active: true
+                };
+                
+                reminders.push(reminder);
+                document.getElementById('reminderTime').value = '';
+                document.getElementById('reminderMessage').value = '';
+                displayReminders();
+                scheduleReminder(reminder);
+                showNotification('Reminder set! 🔔');
+            } else {
+                showNotification('Please enter both time and message for the reminder');
+            }
+        }
+
+        function displayReminders() {
+            const container = document.getElementById('remindersList');
+            container.innerHTML = '';
+            
+            reminders.forEach(reminder => {
+                const item = document.createElement('div');
+                item.className = 'reminder-item';
+                item.innerHTML = `
+                    <div class="reminder-text">
+                        <strong>${reminder.time}</strong> - ${reminder.message}
+                    </div>
+                    <button class="btn btn-secondary btn-small delete-reminder-btn" data-id="${reminder.id}">
+                        Delete
+                    </button>
+                `;
+                container.appendChild(item);
+            });
+
+            // Add event listeners to the dynamically created buttons
+            document.querySelectorAll('.delete-reminder-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    deleteReminder(parseInt(this.getAttribute('data-id')));
+                });
+            });
+        }
+
+        function deleteReminder(id) {
+            reminders = reminders.filter(r => r.id !== id);
+            displayReminders();
+            showNotification('Reminder deleted');
+        }
+
+        function scheduleReminder(reminder) {
+            const now = new Date();
+            const [hours, minutes] = reminder.time.split(':').map(Number);
+            const reminderTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+            
+            if (reminderTime < now) {
+                reminderTime.setDate(reminderTime.getDate() + 1);
+            }
+            
+            const timeUntilReminder = reminderTime.getTime() - now.getTime();
+            
+            setTimeout(() => {
+                if (reminders.find(r => r.id === reminder.id && r.active)) {
+                    showNotification(`🔔 ${reminder.message}`, 5000);
+                    // Reschedule for next day
+                    setTimeout(() => scheduleReminder(reminder), 24 * 60 * 60 * 1000);
+                }
+            }, timeUntilReminder);
+        }
+
+        // Stats Functions
+        function updateStats() {
+            const today = new Date().toISOString().split('T')[0];
+            const todaySessions = prayerSessions.filter(s => s.date === today);
+            const todayMinutes = Math.floor(todaySessions.reduce((total, session) => total + session.duration, 0) / 60);
+            
+            // Calculate week sessions
+            const weekStart = new Date();
+            weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+            const weekSessions = prayerSessions.filter(s => new Date(s.date) >= weekStart);
+            const weekMinutes = Math.floor(weekSessions.reduce((total, session) => total + session.duration, 0) / 60);
+            
+            document.getElementById('todayTime').textContent = todayMinutes;
+            document.getElementById('weekTime').textContent = weekMinutes;
+            document.getElementById('totalRequests').textContent = prayerRequests.length;
+            document.getElementById('answeredRequests').textContent = prayerRequests.filter(r => r.answered).length;
+            
+            // Update progress bar
+            const percentage = Math.min((todayMinutes / dailyGoal) * 100, 100);
+            document.getElementById('progressFill').style.width = percentage + '%';
+        }
+
+        // Notification Function
+        function showNotification(message, duration = 3000) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, duration);
+        }
+
+        // Initialize app
+        function initializeApp() {
+            // Add event listeners to main buttons
+            document.getElementById('startBtn').addEventListener('click', startTimer);
+            document.getElementById('pauseBtn').addEventListener('click', pauseTimer);
+            document.getElementById('stopBtn').addEventListener('click', stopTimer);
+            document.getElementById('addRequestBtn').addEventListener('click', addPrayerRequest);
+            document.getElementById('newVerseBtn').addEventListener('click', getNewVerse);
+            document.getElementById('addReminderBtn').addEventListener('click', addReminder);
+
+            // Initialize displays
+            displayPrayerRequests();
+            displayReminders();
+            updateStats();
+            
+            // Schedule existing reminders
+            reminders.forEach(reminder => {
+                scheduleReminder(reminder);
+            });
+        }
+
+        // Start the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
+</body>
+</html>
