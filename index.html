@@ -3,720 +3,1221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prayer Tracker - Henry's Tech Touch</title>
+    <title>Soulful Tracker | Spiritual Wellness Companion</title>
     <style>
+        /* CSS Reset and Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
         }
+
+        :root {
+            --primary: #6C63FF;
+            --secondary: #4D44DB;
+            --accent: #FF6584;
+            --light: #F8F9FA;
+            --dark: #212529;
+            --success: #28A745;
+            --warning: #FFC107;
+            --danger: #DC3545;
+            --info: #17A2B8;
+            --radius: 12px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Layout Styles */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-        .header {
+
+        header {
             text-align: center;
             margin-bottom: 30px;
-            color: white;
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
         }
-        .header h1 {
-            font-size: 2.5em;
+
+        h1 {
+            color: var(--secondary);
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 600;
         }
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
+
+        .subtitle {
+            color: var(--primary);
+            font-size: 1.1rem;
         }
+
         .app-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
             margin-bottom: 30px;
         }
+
+        /* Card Styles */
         .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
+
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-        .card h2 {
-            color: #5a67d8;
-            margin-bottom: 20px;
-            font-size: 1.4em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+
+        .card-title {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 10px;
         }
-        .icon {
-            font-size: 1.2em;
-        }
+
+        /* Timer Styles */
         .timer-display {
-            font-size: 3em;
-            font-weight: bold;
+            font-size: 3rem;
             text-align: center;
             margin: 20px 0;
-            color: #5a67d8;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            font-family: 'Courier New', monospace;
+            color: var(--primary);
+            font-weight: bold;
         }
+
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
         .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            padding: 10px 20px;
             border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
+            border-radius: var(--radius);
+            background: var(--primary);
+            color: white;
             cursor: pointer;
-            font-size: 1em;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transition: var(--transition);
+            font-weight: 500;
+            box-shadow: var(--shadow);
         }
+
         .btn:hover {
+            background: var(--secondary);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
         .btn-secondary {
-            background: #e2e8f0;
-            color: #4a5568;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            background: var(--accent);
         }
+
         .btn-secondary:hover {
-            background: #cbd5e0;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            background: #e05572;
         }
-        .input-group {
-            margin-bottom: 15px;
+
+        .btn-danger {
+            background: var(--danger);
         }
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #4a5568;
+
+        .btn-danger:hover {
+            background: #c82333;
         }
-        .input-group input, .input-group textarea, .input-group select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s ease;
+
+        /* Content Management Styles */
+        .content-list {
+            list-style: none;
+            margin-top: 15px;
         }
-        .input-group input:focus, .input-group textarea:focus, .input-group select:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-        }
-        .prayer-item {
-            background: #f7fafc;
-            border-left: 4px solid #667eea;
+
+        .content-item {
+            background: rgba(255, 255, 255, 0.7);
             padding: 15px;
             margin-bottom: 10px;
-            border-radius: 0 8px 8px 0;
-            transition: all 0.3s ease;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
         }
-        .prayer-item:hover {
-            background: #edf2f7;
-            transform: translateX(5px);
+
+        .content-item:hover {
+            background: white;
+            border-left: 4px solid var(--accent);
         }
-        .prayer-item.answered {
-            border-left-color: #48bb78;
-            background: #f0fff4;
-        }
-        .prayer-item h4 {
-            color: #2d3748;
-            margin-bottom: 8px;
-        }
-        .prayer-item p {
-            color: #718096;
-            font-size: 0.9em;
+
+        .content-title {
+            font-weight: 600;
             margin-bottom: 5px;
+            color: var(--secondary);
         }
-        .prayer-item .date {
-            font-size: 0.8em;
-            color: #a0aec0;
+
+        .content-text {
+            color: var(--dark);
+            margin-bottom: 10px;
         }
-        .verse-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+
+        .content-meta {
+            font-size: 0.8rem;
+            color: #6c757d;
+            display: flex;
+            justify-content: space-between;
         }
-        .verse-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: shimmer 6s ease-in-out infinite;
+
+        .content-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
         }
-        @keyframes shimmer {
-            0%, 100% {
-                transform: translateX(-100%) translateY(-100%);
-            }
-            50% {
-                transform: translateX(0%) translateY(0%);
-            }
+
+        .content-actions .btn {
+            padding: 5px 10px;
+            font-size: 0.8rem;
         }
-        .verse-text {
-            font-size: 1.2em;
-            font-style: italic;
+
+        /* Form Styles */
+        .form-group {
             margin-bottom: 15px;
-            line-height: 1.6;
-            position: relative;
-            z-index: 1;
         }
-        .verse-reference {
-            font-weight: bold;
-            font-size: 1.1em;
-            position: relative;
-            z-index: 1;
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--secondary);
         }
-        .progress-bar {
+
+        .form-control {
             width: 100%;
-            height: 20px;
-            background: #e2e8f0;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: var(--radius);
+            transition: var(--transition);
         }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            transition: width 0.5s ease;
-            border-radius: 10px;
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.25);
         }
-        .stats-grid {
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Stats Styles */
+        .stats-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
-        .stat-item {
-            text-align: center;
-            background: #f7fafc;
+
+        .stat-card {
+            background: white;
             padding: 15px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
+            border-radius: var(--radius);
+            text-align: center;
+            box-shadow: var(--shadow);
         }
-        .stat-item:hover {
-            background: #edf2f7;
-            transform: scale(1.05);
-        }
-        .stat-number {
-            font-size: 2em;
+
+        .stat-value {
+            font-size: 2rem;
             font-weight: bold;
-            color: #5a67d8;
+            color: var(--primary);
+            margin: 10px 0;
         }
+
         .stat-label {
-            font-size: 0.9em;
-            color: #718096;
-            margin-top: 5px;
+            color: #6c757d;
+            font-size: 0.9rem;
         }
-        .reminder-item {
-            background: #fff5f5;
-            border: 1px solid #fed7d7;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+
+        .chart-container {
+            height: 200px;
+            margin-top: 20px;
+            position: relative;
         }
-        .reminder-text {
-            flex: 1;
-            margin-right: 10px;
-        }
-        .btn-small {
-            padding: 6px 12px;
-            font-size: 0.8em;
-            border-radius: 15px;
-        }
-        @media (max-width: 768px) {
-            .app-grid {
-                grid-template-columns: 1fr;
-            }
-            .container {
-                padding: 10px;
-            }
-            .header h1 {
-                font-size: 2em;
-            }
-        }
+
+        /* Notification Styles */
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #48bb78;
+            background: var(--success);
             color: white;
             padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 1000;
-            transform: translateX(100%);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transform: translateX(200%);
             transition: transform 0.3s ease;
+            z-index: 1000;
         }
+
         .notification.show {
             transform: translateX(0);
+        }
+
+        .notification.error {
+            background: var(--danger);
+        }
+
+        .notification.warning {
+            background: var(--warning);
+            color: var(--dark);
+        }
+
+        /* Navigation Styles */
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .nav-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+            font-weight: 500;
+            color: #6c757d;
+        }
+
+        .nav-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .nav-tab:hover:not(.active) {
+            color: var(--secondary);
+            border-bottom: 3px solid #dee2e6;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .timer-controls {
+                flex-wrap: wrap;
+            }
+            
+            .btn {
+                flex: 1 1 100px;
+            }
+            
+            .app-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timer-display {
+                font-size: 2rem;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .nav-tab {
+                flex: 1 1 100px;
+                text-align: center;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-3 {
+            margin-top: 15px;
+        }
+
+        .mb-3 {
+            margin-bottom: 15px;
+        }
+
+        .d-none {
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>🙏 Prayer Tracker</h1>
-            <p>Henry's Tech Touch - Track Your Spiritual Journey</p>
+        <header>
+            <h1>Soulful Tracker</h1>
+            <p class="subtitle">Your spiritual wellness companion</p>
+        </header>
+
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-tab="timer">Meditation Timer</div>
+            <div class="nav-tab" data-tab="content">Spiritual Content</div>
+            <div class="nav-tab" data-tab="progress">Progress</div>
+            <div class="nav-tab" data-tab="reminders">Reminders</div>
         </div>
 
-        <div class="app-grid">
-            <!-- Prayer Timer Card -->
+        <!-- Timer Tab -->
+        <div id="timer" class="tab-content active">
             <div class="card">
-                <h2><span class="icon">⏰</span>Daily Prayer Timer</h2>
-                <div class="timer-display" id="timerDisplay">00:00:00</div>
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <button class="btn" id="startBtn">Start Prayer</button>
-                    <button class="btn btn-secondary" id="pauseBtn" style="display: none;">Pause</button>
-                    <button class="btn btn-secondary" id="stopBtn" style="display: none;">Stop</button>
+                <h2 class="card-title">Meditation & Prayer Timer</h2>
+                <div class="timer-display" id="display">00:00:00</div>
+                <div class="timer-controls">
+                    <button id="startBtn" class="btn">Start</button>
+                    <button id="pauseBtn" class="btn btn-secondary">Pause</button>
+                    <button id="stopBtn" class="btn btn-danger">Stop</button>
                 </div>
-                <div class="input-group">
-                    <label for="prayerType">Prayer Type:</label>
-                    <select id="prayerType">
-                        <option value="morning">Morning Prayer</option>
-                        <option value="evening">Evening Prayer</option>
+                <div class="form-group mt-3">
+                    <label for="sessionType" class="form-label">Session Type</label>
+                    <select id="sessionType" class="form-control">
                         <option value="meditation">Meditation</option>
-                        <option value="intercession">Intercession</option>
-                        <option value="thanksgiving">Thanksgiving</option>
+                        <option value="prayer">Prayer</option>
+                        <option value="gratitude">Gratitude Practice</option>
+                        <option value="reading">Scripture Reading</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="sessionNotes" class="form-label">Notes (Optional)</label>
+                    <textarea id="sessionNotes" class="form-control" placeholder="Any insights or reflections..."></textarea>
+                </div>
+                <button id="saveSessionBtn" class="btn btn-secondary">Save Session</button>
             </div>
+        </div>
 
-            <!-- Prayer Requests Card -->
+        <!-- Content Tab -->
+        <div id="content" class="tab-content">
+            <div class="app-grid">
+                <div class="card">
+                    <h2 class="card-title">Add Spiritual Content</h2>
+                    <form id="contentForm">
+                        <div class="form-group">
+                            <label for="contentType" class="form-label">Content Type</label>
+                            <select id="contentType" class="form-control" required>
+                                <option value="">Select type...</option>
+                                <option value="prayer">Prayer Request</option>
+                                <option value="verse">Scripture Verse</option>
+                                <option value="reflection">Personal Reflection</option>
+                                <option value="quote">Inspirational Quote</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contentTitle" class="form-label">Title</label>
+                            <input type="text" id="contentTitle" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contentText" class="form-label">Content</label>
+                            <textarea id="contentText" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Save Content</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h2 class="card-title">Your Spiritual Content</h2>
+                    <div class="form-group">
+                        <input type="text" id="contentSearch" class="form-control" placeholder="Search content...">
+                    </div>
+                    <ul class="content-list" id="contentList">
+                        <!-- Content items will be added here dynamically -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Tab -->
+        <div id="progress" class="tab-content">
             <div class="card">
-                <h2><span class="icon">📝</span>Prayer Requests</h2>
-                <div class="input-group">
-                    <label for="requestTitle">Request Title:</label>
-                    <input type="text" id="requestTitle" placeholder="Enter prayer request title">
+                <h2 class="card-title">Your Spiritual Journey</h2>
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Sessions</div>
+                        <div class="stat-value" id="totalSessions">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Time</div>
+                        <div class="stat-value" id="totalTime">0h</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Current Streak</div>
+                        <div class="stat-value" id="currentStreak">0d</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Favorite Practice</div>
+                        <div class="stat-value" id="favoritePractice">-</div>
+                    </div>
                 </div>
-                <div class="input-group">
-                    <label for="requestDescription">Description:</label>
-                    <textarea id="requestDescription" rows="3" placeholder="Describe your prayer request"></textarea>
-                </div>
-                <button class="btn" id="addRequestBtn">Add Request</button>
-                <div id="prayerRequestsList" style="margin-top: 20px; max-height: 300px; overflow-y: auto;">
-                    <!-- Prayer requests will be displayed here -->
+                <div class="chart-container">
+                    <canvas id="progressChart"></canvas>
                 </div>
             </div>
-
-            <!-- Scripture Verse Card -->
-            <div class="card verse-card">
-                <h2 style="color: white;"><span class="icon">📖</span>Verse of the Day</h2>
-                <div class="verse-text" id="verseText">
-                    "For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, to give you hope and a future."
-                </div>
-                <div class="verse-reference" id="verseReference">Jeremiah 29:11</div>
-                <button class="btn btn-secondary" id="newVerseBtn" style="margin-top: 15px; background: rgba(255,255,255,0.2); color: white;">New Verse</button>
+            <div class="card mt-3">
+                <h2 class="card-title">Recent Sessions</h2>
+                <ul class="content-list" id="sessionHistory">
+                    <!-- Session history will be added here dynamically -->
+                </ul>
             </div>
+        </div>
 
-            <!-- Progress Visualization Card -->
-            <div class="card">
-                <h2><span class="icon">📊</span>Progress Tracking</h2>
-                <div class="input-group">
-                    <label>Today's Prayer Goal: <span id="goalDisplay">30 minutes</span></label>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
-                    </div>
+        <!-- Reminders Tab -->
+        <div id="reminders" class="tab-content">
+            <div class="app-grid">
+                <div class="card">
+                    <h2 class="card-title">Set Reminder</h2>
+                    <form id="reminderForm">
+                        <div class="form-group">
+                            <label for="reminderTime" class="form-label">Time</label>
+                            <input type="time" id="reminderTime" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reminderDays" class="form-label">Days</label>
+                            <div class="days-selector">
+                                <label class="day-checkbox"><input type="checkbox" name="day" value="0"> Sun</label>
+                                <label class="day-checkbox"><input type="checkbox" name="day" value="1"> Mon</label>
+                                <label class="day-checkbox"><input type="checkbox" name="day" value="2"> Tue</label>
+                                <label class="day-checkbox"><input type="checkbox" name="day" value="3"> Wed</label>
+                                <label class="day-checkbox"><input type="checkbox" name="day" value="4"> Thu</label>
+                                <label class="day-checkbox"><input type="checkbox" name="day" value="5"> Fri</label>
+                                <label class="day-checkbox"><input type="checkbox" name="day" value="6"> Sat</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="reminderMessage" class="form-label">Message</label>
+                            <input type="text" id="reminderMessage" class="form-control" placeholder="Time for meditation!" required>
+                        </div>
+                        <button type="submit" class="btn">Set Reminder</button>
+                    </form>
                 </div>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number" id="todayTime">0</div>
-                        <div class="stat-label">Today (min)</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="weekTime">0</div>
-                        <div class="stat-label">This Week (min)</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="totalRequests">0</div>
-                        <div class="stat-label">Total Requests</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number" id="answeredRequests">0</div>
-                        <div class="stat-label">Answered</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reminder System Card -->
-            <div class="card">
-                <h2><span class="icon">🔔</span>Prayer Reminders</h2>
-                <div class="input-group">
-                    <label for="reminderTime">Reminder Time:</label>
-                    <input type="time" id="reminderTime">
-                </div>
-                <div class="input-group">
-                    <label for="reminderMessage">Message:</label>
-                    <input type="text" id="reminderMessage" placeholder="Time for prayer!">
-                </div>
-                <button class="btn" id="addReminderBtn">Add Reminder</button>
-                <div id="remindersList" style="margin-top: 20px;">
-                    <!-- Reminders will be displayed here -->
+                <div class="card">
+                    <h2 class="card-title">Your Reminders</h2>
+                    <ul class="content-list" id="remindersList">
+                        <!-- Reminders will be added here dynamically -->
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="notification" id="notification"></div>
+    <!-- Notification Element -->
+    <div id="notification" class="notification"></div>
 
     <script>
-        // App State
-        let timerInterval;
-        let startTime;
-        let pausedTime = 0;
-        let isRunning = false;
-        let isPaused = false;
-        let dailyGoal = 30; // minutes
+        // =============================================
+        // STATE MANAGEMENT
+        // =============================================
+        
+        // App state object
+        const state = {
+            timer: {
+                running: false,
+                paused: false,
+                startTime: null,
+                elapsed: 0,
+                interval: null
+            },
+            sessions: [],
+            content: [],
+            reminders: [],
+            lastSessionDate: null,
+            currentStreak: 0
+        };
 
-        // Data Storage
-        let prayerRequests = [
-            { id: 1, title: "Family Health", description: "Praying for my family's continued health and wellbeing", date: new Date().toLocaleDateString(), answered: false },
-            { id: 2, title: "Work Guidance", description: "Seeking wisdom and direction in my career", date: new Date().toLocaleDateString(), answered: true }
-        ];
-
-        let prayerSessions = [
-            { date: new Date().toISOString().split('T')[0], duration: 900, // 15 minutes
-              type: 'morning', timestamp: new Date().toISOString() }
-        ];
-
-        let reminders = [];
-
-        // Scripture verses
-        const verses = [
-            { text: "For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, to give you hope and a future.", reference: "Jeremiah 29:11" },
-            { text: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.", reference: "Romans 8:28" },
-            { text: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.", reference: "Proverbs 3:5-6" },
-            { text: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.", reference: "Joshua 1:9" },
-            { text: "Cast all your anxiety on him because he cares for you.", reference: "1 Peter 5:7" },
-            { text: "The Lord is my shepherd, I lack nothing.", reference: "Psalm 23:1" },
-            { text: "I can do all this through him who gives me strength.", reference: "Philippians 4:13" },
-            { text: "Rejoice always, pray continually, give thanks in all circumstances; for this is God's will for you in Christ Jesus.", reference: "1 Thessalonians 5:16-18" }
-        ];
-
-        // Timer Functions
-        function startTimer() {
-            if (!isRunning) {
-                startTime = Date.now() - pausedTime;
-                isRunning = true;
-                isPaused = false;
-                document.getElementById('startBtn').style.display = 'none';
-                document.getElementById('pauseBtn').style.display = 'inline-block';
-                document.getElementById('stopBtn').style.display = 'inline-block';
-                timerInterval = setInterval(updateTimer, 1000);
-                showNotification('Prayer session started! 🙏');
-            }
-        }
-
-        function pauseTimer() {
-            if (isRunning && !isPaused) {
-                clearInterval(timerInterval);
-                pausedTime = Date.now() - startTime;
-                isPaused = true;
-                document.getElementById('pauseBtn').textContent = 'Resume';
-                showNotification('Prayer session paused');
-            } else if (isPaused) {
-                startTime = Date.now() - pausedTime;
-                isPaused = false;
-                document.getElementById('pauseBtn').textContent = 'Pause';
-                timerInterval = setInterval(updateTimer, 1000);
-                showNotification('Prayer session resumed');
-            }
-        }
-
-        function stopTimer() {
-            if (isRunning || isPaused) {
-                clearInterval(timerInterval);
-                
-                // Save the session
-                const sessionDuration = Math.floor((Date.now() - startTime) / 1000);
-                const prayerType = document.getElementById('prayerType').value;
-                
-                if (sessionDuration > 0) {
-                    prayerSessions.push({
-                        date: new Date().toISOString().split('T')[0],
-                        duration: sessionDuration,
-                        type: prayerType,
-                        timestamp: new Date().toISOString()
-                    });
-                }
-
-                // Reset timer
-                isRunning = false;
-                isPaused = false;
-                pausedTime = 0;
-                document.getElementById('startBtn').style.display = 'inline-block';
-                document.getElementById('pauseBtn').style.display = 'none';
-                document.getElementById('stopBtn').style.display = 'none';
-                document.getElementById('timerDisplay').textContent = '00:00:00';
-                
-                updateStats();
-                showNotification(`Prayer session completed! Duration: ${formatTime(sessionDuration)}`);
-            }
-        }
-
-        function updateTimer() {
-            if (isRunning && !isPaused) {
-                const elapsed = Date.now() - startTime;
-                document.getElementById('timerDisplay').textContent = formatTime(Math.floor(elapsed / 1000));
-                updateProgressBar(Math.floor(elapsed / 1000));
-            }
-        }
-
-        function formatTime(seconds) {
-            const hours = Math.floor(seconds / 3600);
-            const minutes = Math.floor((seconds % 3600) / 60);
-            const secs = seconds % 60;
-            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        function updateProgressBar(seconds) {
-            const minutes = seconds / 60;
-            const percentage = Math.min((minutes / dailyGoal) * 100, 100);
-            document.getElementById('progressFill').style.width = percentage + '%';
-        }
-
-        // Prayer Request Functions
-        function addPrayerRequest() {
-            const title = document.getElementById('requestTitle').value.trim();
-            const description = document.getElementById('requestDescription').value.trim();
-            
-            if (title) {
-                const request = {
-                    id: Date.now(),
-                    title: title,
-                    description: description,
-                    date: new Date().toLocaleDateString(),
-                    answered: false
-                };
-                
-                prayerRequests.unshift(request);
-                document.getElementById('requestTitle').value = '';
-                document.getElementById('requestDescription').value = '';
-                displayPrayerRequests();
-                updateStats();
-                showNotification('Prayer request added! 📝');
-            } else {
-                showNotification('Please enter a title for your prayer request');
-            }
-        }
-
-        function displayPrayerRequests() {
-            const container = document.getElementById('prayerRequestsList');
-            container.innerHTML = '';
-            
-            prayerRequests.forEach(request => {
-                const item = document.createElement('div');
-                item.className = `prayer-item ${request.answered ? 'answered' : ''}`;
-                item.innerHTML = `
-                    <h4>${request.title}</h4>
-                    <p>${request.description}</p>
-                    <p class="date">Added: ${request.date}</p>
-                    <button class="btn btn-small toggle-answered-btn" data-id="${request.id}">
-                        ${request.answered ? 'Mark as Pending' : 'Mark as Answered'}
-                    </button>
-                    <button class="btn btn-secondary btn-small delete-request-btn" data-id="${request.id}" style="margin-left: 10px;">
-                        Delete
-                    </button>
-                `;
-                container.appendChild(item);
-            });
-
-            // Add event listeners to the dynamically created buttons
-            document.querySelectorAll('.toggle-answered-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    toggleAnswered(parseInt(this.getAttribute('data-id')));
-                });
-            });
-
-            document.querySelectorAll('.delete-request-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    deletePrayerRequest(parseInt(this.getAttribute('data-id')));
-                });
-            });
-        }
-
-        function toggleAnswered(id) {
-            const request = prayerRequests.find(r => r.id === id);
-            if (request) {
-                request.answered = !request.answered;
-                displayPrayerRequests();
-                updateStats();
-                showNotification(request.answered ? 'Prayer answered! 🙏✨' : 'Prayer marked as pending');
-            }
-        }
-
-        function deletePrayerRequest(id) {
-            prayerRequests = prayerRequests.filter(r => r.id !== id);
-            displayPrayerRequests();
-            updateStats();
-            showNotification('Prayer request deleted');
-        }
-
-        // Scripture Functions
-        function getNewVerse() {
-            const randomIndex = Math.floor(Math.random() * verses.length);
-            const verse = verses[randomIndex];
-            document.getElementById('verseText').textContent = verse.text;
-            document.getElementById('verseReference').textContent = verse.reference;
-            showNotification('New verse loaded! 📖');
-        }
-
-        // Reminder Functions
-        function addReminder() {
-            const time = document.getElementById('reminderTime').value;
-            const message = document.getElementById('reminderMessage').value.trim();
-            
-            if (time && message) {
-                const reminder = {
-                    id: Date.now(),
-                    time: time,
-                    message: message,
-                    active: true
-                };
-                
-                reminders.push(reminder);
-                document.getElementById('reminderTime').value = '';
-                document.getElementById('reminderMessage').value = '';
-                displayReminders();
-                scheduleReminder(reminder);
-                showNotification('Reminder set! 🔔');
-            } else {
-                showNotification('Please enter both time and message for the reminder');
-            }
-        }
-
-        function displayReminders() {
-            const container = document.getElementById('remindersList');
-            container.innerHTML = '';
-            
-            reminders.forEach(reminder => {
-                const item = document.createElement('div');
-                item.className = 'reminder-item';
-                item.innerHTML = `
-                    <div class="reminder-text">
-                        <strong>${reminder.time}</strong> - ${reminder.message}
-                    </div>
-                    <button class="btn btn-secondary btn-small delete-reminder-btn" data-id="${reminder.id}">
-                        Delete
-                    </button>
-                `;
-                container.appendChild(item);
-            });
-
-            // Add event listeners to the dynamically created buttons
-            document.querySelectorAll('.delete-reminder-btn').forEach(button => {
-                button.addEventListener('click', function() {
-                    deleteReminder(parseInt(this.getAttribute('data-id')));
-                });
-            });
-        }
-
-        function deleteReminder(id) {
-            reminders = reminders.filter(r => r.id !== id);
-            displayReminders();
-            showNotification('Reminder deleted');
-        }
-
-        function scheduleReminder(reminder) {
+        // Initialize sample data
+        function initializeSampleData() {
+            // Sample sessions
             const now = new Date();
-            const [hours, minutes] = reminder.time.split(':').map(Number);
-            const reminderTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+            const yesterday = new Date(now);
+            yesterday.setDate(yesterday.getDate() - 1);
             
-            if (reminderTime < now) {
-                reminderTime.setDate(reminderTime.getDate() + 1);
-            }
-            
-            const timeUntilReminder = reminderTime.getTime() - now.getTime();
-            
-            setTimeout(() => {
-                if (reminders.find(r => r.id === reminder.id && r.active)) {
-                    showNotification(`🔔 ${reminder.message}`, 5000);
-                    // Reschedule for next day
-                    setTimeout(() => scheduleReminder(reminder), 24 * 60 * 60 * 1000);
+            state.sessions = [
+                {
+                    id: 1,
+                    type: 'meditation',
+                    duration: 1200, // 20 minutes in seconds
+                    date: yesterday.toISOString(),
+                    notes: 'Focused on breath awareness'
+                },
+                {
+                    id: 2,
+                    type: 'prayer',
+                    duration: 600, // 10 minutes
+                    date: now.toISOString(),
+                    notes: 'Morning gratitude prayer'
                 }
-            }, timeUntilReminder);
+            ];
+            
+            // Sample content
+            state.content = [
+                {
+                    id: 1,
+                    type: 'verse',
+                    title: 'Psalm 23:1',
+                    text: 'The LORD is my shepherd; I shall not want.',
+                    date: now.toISOString()
+                },
+                {
+                    id: 2,
+                    type: 'prayer',
+                    title: 'Healing for a friend',
+                    text: 'Praying for healing and comfort for my friend going through a difficult time.',
+                    date: yesterday.toISOString()
+                }
+            ];
+            
+            // Sample reminders
+            state.reminders = [
+                {
+                    id: 1,
+                    time: '08:00',
+                    days: [1, 2, 3, 4, 5], // Weekdays
+                    message: 'Morning meditation time!',
+                    enabled: true
+                }
+            ];
+            
+            // Calculate initial streak
+            calculateStreak();
         }
 
-        // Stats Functions
-        function updateStats() {
-            const today = new Date().toISOString().split('T')[0];
-            const todaySessions = prayerSessions.filter(s => s.date === today);
-            const todayMinutes = Math.floor(todaySessions.reduce((total, session) => total + session.duration, 0) / 60);
+        // =============================================
+        // UTILITY FUNCTIONS
+        // =============================================
+
+        // Format time in HH:MM:SS
+        function formatTime(seconds) {
+            const hrs = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
             
-            // Calculate week sessions
-            const weekStart = new Date();
-            weekStart.setDate(weekStart.getDate() - weekStart.getDay());
-            const weekSessions = prayerSessions.filter(s => new Date(s.date) >= weekStart);
-            const weekMinutes = Math.floor(weekSessions.reduce((total, session) => total + session.duration, 0) / 60);
-            
-            document.getElementById('todayTime').textContent = todayMinutes;
-            document.getElementById('weekTime').textContent = weekMinutes;
-            document.getElementById('totalRequests').textContent = prayerRequests.length;
-            document.getElementById('answeredRequests').textContent = prayerRequests.filter(r => r.answered).length;
-            
-            // Update progress bar
-            const percentage = Math.min((todayMinutes / dailyGoal) * 100, 100);
-            document.getElementById('progressFill').style.width = percentage + '%';
+            return [
+                hrs.toString().padStart(2, '0'),
+                mins.toString().padStart(2, '0'),
+                secs.toString().padStart(2, '0')
+            ].join(':');
         }
 
-        // Notification Function
-        function showNotification(message, duration = 3000) {
+        // Format date for display
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        // Show notification
+        function showNotification(message, type = 'success') {
             const notification = document.getElementById('notification');
             notification.textContent = message;
-            notification.classList.add('show');
+            notification.className = `notification ${type} show`;
             
             setTimeout(() => {
                 notification.classList.remove('show');
-            }, duration);
+            }, 3000);
         }
 
-        // Initialize app
-        function initializeApp() {
-            // Add event listeners to main buttons
-            document.getElementById('startBtn').addEventListener('click', startTimer);
-            document.getElementById('pauseBtn').addEventListener('click', pauseTimer);
-            document.getElementById('stopBtn').addEventListener('click', stopTimer);
-            document.getElementById('addRequestBtn').addEventListener('click', addPrayerRequest);
-            document.getElementById('newVerseBtn').addEventListener('click', getNewVerse);
-            document.getElementById('addReminderBtn').addEventListener('click', addReminder);
+        // Generate unique ID
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
 
-            // Initialize displays
-            displayPrayerRequests();
-            displayReminders();
-            updateStats();
+        // Calculate streak of consecutive days with sessions
+        function calculateStreak() {
+            if (state.sessions.length === 0) {
+                state.currentStreak = 0;
+                return;
+            }
             
-            // Schedule existing reminders
-            reminders.forEach(reminder => {
-                scheduleReminder(reminder);
+            // Sort sessions by date (newest first)
+            const sortedSessions = [...state.sessions].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            let streak = 0;
+            let currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0);
+            
+            // Check if there was a session today
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const lastSessionDate = new Date(sortedSessions[0].date);
+            lastSessionDate.setHours(0, 0, 0, 0);
+            
+            if (lastSessionDate.getTime() === today.getTime()) {
+                streak = 1;
+                currentDate.setDate(currentDate.getDate() - 1);
+            }
+            
+            // Check previous days
+            for (let i = 0; i < sortedSessions.length; i++) {
+                const sessionDate = new Date(sortedSessions[i].date);
+                sessionDate.setHours(0, 0, 0, 0);
+                
+                if (sessionDate.getTime() === currentDate.getTime()) {
+                    streak++;
+                    currentDate.setDate(currentDate.getDate() - 1);
+                } else if (sessionDate < currentDate) {
+                    break;
+                }
+            }
+            
+            state.currentStreak = streak;
+        }
+
+        // =============================================
+        // TIMER FUNCTIONALITY
+        // =============================================
+
+        // Start timer
+        function startTimer() {
+            if (state.timer.running && !state.timer.paused) return;
+            
+            if (state.timer.paused) {
+                // Resume from paused state
+                state.timer.startTime = new Date().getTime() - state.timer.elapsed;
+                state.timer.paused = false;
+            } else {
+                // Start fresh
+                state.timer.startTime = new Date().getTime();
+                state.timer.elapsed = 0;
+                state.timer.running = true;
+            }
+            
+            state.timer.interval = setInterval(updateTimerDisplay, 1000);
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('pauseBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = false;
+            
+            showNotification('Timer started', 'success');
+        }
+
+        // Pause timer
+        function pauseTimer() {
+            if (!state.timer.running || state.timer.paused) return;
+            
+            clearInterval(state.timer.interval);
+            state.timer.paused = true;
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('pauseBtn').disabled = true;
+            
+            showNotification('Timer paused', 'warning');
+        }
+
+        // Stop timer
+        function stopTimer() {
+            clearInterval(state.timer.interval);
+            state.timer.running = false;
+            state.timer.paused = false;
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('pauseBtn').disabled = true;
+            document.getElementById('stopBtn').disabled = true;
+            
+            showNotification('Timer stopped', 'info');
+        }
+
+        // Update timer display
+        function updateTimerDisplay() {
+            if (!state.timer.running) return;
+            
+            const currentTime = new Date().getTime();
+            state.timer.elapsed = Math.floor((currentTime - state.timer.startTime) / 1000);
+            
+            document.getElementById('display').textContent = formatTime(state.timer.elapsed);
+        }
+
+        // Save session to history
+        function saveSession() {
+            if (!state.timer.running && state.timer.elapsed === 0) {
+                showNotification('No session to save', 'error');
+                return;
+            }
+            
+            const sessionType = document.getElementById('sessionType').value;
+            const sessionNotes = document.getElementById('sessionNotes').value;
+            
+            const newSession = {
+                id: generateId(),
+                type: sessionType,
+                duration: state.timer.elapsed,
+                date: new Date().toISOString(),
+                notes: sessionNotes
+            };
+            
+            state.sessions.push(newSession);
+            stopTimer();
+            document.getElementById('sessionNotes').value = '';
+            
+            // Recalculate streak
+            calculateStreak();
+            
+            // Update UI
+            updateStats();
+            renderSessionHistory();
+            
+            showNotification('Session saved successfully', 'success');
+        }
+
+        // =============================================
+        // CONTENT MANAGEMENT
+        // =============================================
+
+        // Add new content
+        function addContent(event) {
+            event.preventDefault();
+            
+            const type = document.getElementById('contentType').value;
+            const title = document.getElementById('contentTitle').value.trim();
+            const text = document.getElementById('contentText').value.trim();
+            
+            if (!type || !title || !text) {
+                showNotification('Please fill all fields', 'error');
+                return;
+            }
+            
+            const newContent = {
+                id: generateId(),
+                type,
+                title,
+                text,
+                date: new Date().toISOString()
+            };
+            
+            state.content.push(newContent);
+            document.getElementById('contentForm').reset();
+            renderContentList();
+            
+            showNotification('Content added successfully', 'success');
+        }
+
+        // Delete content
+        function deleteContent(id) {
+            state.content = state.content.filter(item => item.id !== id);
+            renderContentList();
+            showNotification('Content deleted', 'info');
+        }
+
+        // Edit content
+        function editContent(id) {
+            const contentItem = state.content.find(item => item.id === id);
+            if (!contentItem) return;
+            
+            document.getElementById('contentType').value = contentItem.type;
+            document.getElementById('contentTitle').value = contentItem.title;
+            document.getElementById('contentText').value = contentItem.text;
+            
+            // Change form to update mode
+            const form = document.getElementById('contentForm');
+            form.dataset.editingId = id;
+            form.querySelector('button[type="submit"]').textContent = 'Update Content';
+            
+            // Scroll to form
+            document.querySelector('.nav-tab[data-tab="content"]').click();
+            document.getElementById('contentForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Update existing content
+        function updateContent(event) {
+            event.preventDefault();
+            
+            const id = event.target.dataset.editingId;
+            const type = document.getElementById('contentType').value;
+            const title = document.getElementById('contentTitle').value.trim();
+            const text = document.getElementById('contentText').value.trim();
+            
+            if (!type || !title || !text) {
+                showNotification('Please fill all fields', 'error');
+                return;
+            }
+            
+            const contentIndex = state.content.findIndex(item => item.id === id);
+            if (contentIndex === -1) return;
+            
+            state.content[contentIndex] = {
+                ...state.content[contentIndex],
+                type,
+                title,
+                text
+            };
+            
+            document.getElementById('contentForm').reset();
+            delete event.target.dataset.editingId;
+            event.target.querySelector('button[type="submit"]').textContent = 'Save Content';
+            renderContentList();
+            
+            showNotification('Content updated successfully', 'success');
+        }
+
+        // Search content
+        function searchContent() {
+            const searchTerm = document.getElementById('contentSearch').value.toLowerCase();
+            renderContentList(searchTerm);
+        }
+
+        // Render content list
+        function renderContentList(searchTerm = '') {
+            const contentList = document.getElementById('contentList');
+            contentList.innerHTML = '';
+            
+            const filteredContent = searchTerm 
+                ? state.content.filter(item => 
+                    item.title.toLowerCase().includes(searchTerm) || 
+                    item.text.toLowerCase().includes(searchTerm))
+                : state.content;
+            
+            if (filteredContent.length === 0) {
+                contentList.innerHTML = '<li class="content-item">No content found</li>';
+                return;
+            }
+            
+            filteredContent.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'content-item';
+                li.innerHTML = `
+                    <div class="content-title">${item.title}</div>
+                    <div class="content-text">${item.text}</div>
+                    <div class="content-meta">
+                        <span>${item.type.charAt(0).toUpperCase() + item.type.slice(1)}</span>
+                        <span>${formatDate(item.date)}</span>
+                    </div>
+                    <div class="content-actions">
+                        <button class="btn btn-secondary" data-id="${item.id}" onclick="editContent('${item.id}')">Edit</button>
+                        <button class="btn btn-danger" data-id="${item.id}" onclick="deleteContent('${item.id}')">Delete</button>
+                    </div>
+                `;
+                contentList.appendChild(li);
             });
         }
 
-        // Start the app when DOM is loaded
-        document.addEventListener('DOMContentLoaded', initializeApp);
+        // =============================================
+        // REMINDERS FUNCTIONALITY
+        // =============================================
+
+        // Add new reminder
+        function addReminder(event) {
+            event.preventDefault();
+            
+            const time = document.getElementById('reminderTime').value;
+            const message = document.getElementById('reminderMessage').value.trim();
+            const dayCheckboxes = document.querySelectorAll('input[name="day"]:checked');
+            
+            if (!time || !message || dayCheckboxes.length === 0) {
+                showNotification('Please fill all fields and select at least one day', 'error');
+                return;
+            }
+            
+            const days = Array.from(dayCheckboxes).map(cb => parseInt(cb.value));
+            
+            const newReminder = {
+                id: generateId(),
+                time,
+                days,
+                message,
+                enabled: true
+            };
+            
+            state.reminders.push(newReminder);
+            document.getElementById('reminderForm').reset();
+            renderRemindersList();
+            
+            // Start checking reminders if this is the first one
+            if (state.reminders.length === 1) {
+                checkReminders();
+            }
+            
+            showNotification('Reminder set successfully', 'success');
+        }
+
+        // Toggle reminder status
+        function toggleReminder(id) {
+            const reminder = state.reminders.find(r => r.id === id);
+            if (reminder) {
+                reminder.enabled = !reminder.enabled;
+                renderRemindersList();
+                showNotification(`Reminder ${reminder.enabled ? 'enabled' : 'disabled'}`, 'info');
+            }
+        }
+
+        // Delete reminder
+        function deleteReminder(id) {
+            state.reminders = state.reminders.filter(r => r.id !== id);
+            renderRemindersList();
+            showNotification('Reminder deleted', 'info');
+        }
+
+        // Render reminders list
+        function renderRemindersList() {
+            const remindersList = document.getElementById('remindersList');
+            remindersList.innerHTML = '';
+            
+            if (state.reminders.length === 0) {
+                remindersList.innerHTML = '<li class="content-item">No reminders set</li>';
+                return;
+            }
+            
+            state.reminders.forEach(reminder => {
+                const li = document.createElement('li');
+                li.className = 'content-item';
+                
+                const daysMap = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                const daysText = reminder.days.map(d => daysMap[d]).join(', ');
+                
+                li.innerHTML = `
+                    <div class="content-title">${reminder.message}</div>
+                    <div class="content-text">${reminder.time} on ${daysText}</div>
+                    <div class="content-actions">
+                        <button class="btn ${reminder.enabled ? 'btn-secondary' : 'btn'}" 
+                                onclick="toggleReminder('${reminder.id}')">
+                            ${reminder.enabled ? 'Disable' : 'Enable'}
+                        </button>
+                        <button class="btn btn-danger" onclick="deleteReminder('${reminder.id}')">Delete</button>
+                    </div>
+                `;
+                remindersList.appendChild(li);
+            });
+        }
+
+        // Check reminders and show notifications
+        function checkReminders() {
+            const now = new Date();
+            const currentDay = now.getDay(); // 0 (Sun) to 6 (Sat)
+            const currentHours = now.getHours().toString().padStart(2, '0');
+            const currentMinutes = now.getMinutes().toString().padStart(2, '0');
+            const currentTime = `${currentHours}:${currentMinutes}`;
+            
+            state.reminders.forEach(reminder => {
+                if (reminder.enabled && 
+                    reminder.days.includes(currentDay) && 
+                    reminder.time === currentTime) {
+                    showNotification(reminder.message, 'info');
+                }
+            });
+            
+            // Check every minute
+            setTimeout(checkReminders, 60000);
+        }
+
+        // =============================================
+        // PROGRESS STATISTICS
+        // =============================================
+
+        // Update stats display
+        function updateStats() {
+            // Total sessions
+            document.getElementById('totalSessions').textContent = state.sessions.length;
+            
+            // Total time
+            const totalSeconds = state.sessions.reduce((sum, session) => sum + session.duration, 0);
+            const totalHours = Math.floor(totalSeconds / 3600);
+            document.getElementById('totalTime').textContent = `${totalHours}h`;
+            
+            // Current streak
+            document.getElementById('currentStreak').textContent = `${state.currentStreak}d`;
+            
+            // Favorite practice
+            if (state.sessions.length > 0) {
+                const practiceCounts = {};
+                state.sessions.forEach(session => {
+                    practiceCounts[session.type] = (practiceCounts[session.type] || 0) + 1;
+                });
+                
+                const favorite = Object.entries(practiceCounts).reduce((a, b) => b[1] > a[1] ? b : a)[0];
+                document.getElementById('favoritePractice').textContent = 
+                    favorite.charAt(0).toUpperCase() + favorite.slice(1);
+            }
+            
+            // Render chart
+            renderProgressChart();
+        }
+
+        // Render progress chart
+        function renderProgressChart() {
+            const canvas = document.getElementById('progressChart');
+            if (!canvas) return;
+            
+            // Group sessions by date
+            const sessionsByDate = {};
+            state.sessions.forEach(session => {
+                const date = new Date(session.date).toLocaleDateString();
+                sessionsByDate[date] = (sessionsByDate[date] || 0) + session.duration / 60; // in minutes
+            });
+            
+            const dates = Object.keys(sessionsByDate).sort();
+            const durations = dates.map(date => sessionsByDate[date]);
+            
+            // Create chart
+            const ctx = canvas.getContext('2d');
+            
+            // Clear previous chart if exists
+            if (canvas.chart) {
+                canvas.chart.destroy();
+            }
+            
+            canvas.chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: 'Minutes',
+                        data: durations,
+                        backgroundColor: 'rgba(108, 99, 255, 0.7)',
+                        borderColor: 'rgba(108, 99, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Minutes'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Render session history
+        function renderSessionHistory() {
+            const sessionHistory = document.getElementById('sessionHistory');
+            sessionHistory.innerHTML = '';
+            
+            if (state.sessions.length === 0) {
+                sessionHistory.innerHTML = '<li class="content-item">No sessions recorded yet</li>';
+                return;
+            }
+            
+            // Sort by date (newest first)
+            const sortedSessions = [...state.sessions].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            sortedSessions.forEach(session => {
+                const li = document.createElement('li');
+                li.className = 'content-item';
+                li.innerHTML = `
+                    <div class="content-title">${session.type.charAt(0).toUpperCase() + session.type.slice(1)}</div>
+                    <div class="content-text">${session.notes || 'No notes'}</div>
+                    <div class="content-meta">
+                        <span>${formatTime(session.duration)}</span>
+                        <span>${formatDate(session.date)}</span>
+                    </div>
+                `;
+                sessionHistory.appendChild(li);
+            });
+        }
+
+        // =============================================
+        // UI INITIALIZATION AND EVENT LISTENERS
+        // =============================================
+
+        // Initialize tabs
+        function initTabs() {
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and content
+                    tabs.forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                    
+                    // Special handling for progress tab to update stats
+                    if (tab.dataset.tab === 'progress') {
+                        updateStats();
+                    }
+                });
+            });
+        }
+
+        // Initialize the app
+        function initApp() {
+            // Initialize sample data
+            initializeSampleData();
+            
+            // Set up timer controls
+            document.getElementById('startBtn').addEventListener('click', startTimer);
+            document.getElementById('pauseBtn').addEventListener('click', pauseTimer);
+            document.getElementById('stopBtn').addEventListener('click', stopTimer);
+            document.getElementById('saveSessionBtn').addEventListener('click', saveSession);
+            
+            // Set up content form
+            const contentForm = document.getElementById('contentForm');
+            contentForm.addEventListener('submit', function(e) {
+                if (this.dataset.editingId) {
+                    updateContent(e);
+                } else {
+                    addContent(e);
+                }
+            });
+            
+            // Set up content search
+            document.getElementById('contentSearch').addEventListener('input', searchContent);
+            
+            // Set up reminder form
+            document.getElementById('reminderForm').addEventListener('submit', addReminder);
+            
+            // Initialize tabs
+            initTabs();
+            
+            // Initial renders
+            renderContentList();
+            renderRemindersList();
+            renderSessionHistory();
+            updateStats();
+            
+            // Disable pause/stop buttons initially
+            document.getElementById('pauseBtn').disabled = true;
+            document.getElementById('stopBtn').disabled = true;
+            
+            // Start checking reminders
+            checkReminders();
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
 </html>
